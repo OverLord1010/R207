@@ -1,17 +1,3 @@
-"""
-sqlite3 sujet.sqlite
-.read magasin_sqlite.sql
-.quit
-"""
-select * from X where numprod in (select numprod from Y where Z)
-
-----------
-
-Afin d'accèder au bureau sur ordi uppa en utilisant ubuntu : 
-/mnt/c/Documents and Settings/uppa/Desktop/
-
-
-
 #1
 
 a)
