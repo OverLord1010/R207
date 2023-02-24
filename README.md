@@ -4,6 +4,7 @@ SQL Learning
 # Utilisation de sqlite :
 
 sqlite3 sujet.sqlite
+
 .read magasin_sqlite.sql
 .quit
 
