@@ -1,0 +1,135 @@
+1)
+select nomcomp from composant where marque="Abit" and type="CM";
+=> 	Abit BH6 ATX
+	Abit BE6 ATX UDMA66
+
+2)
+select numpc from assemble 
+where refcomp in (select refcomp from composant 
+where type="CD");
+=> 	pc01
+	pc03
+	pc04
+	pc05
+
+3)
+select assemble.numpc, composant.nomcomp from assemble, composant 
+where assemble.refcomp=composant.refcomp;
+=> 	pc01   CD-ROM 40X IDE
+	pc01   Abit BE6 ATX UDMA66
+	pc01   9,1Go IBM UW2 10000trs
+	pc01   Pentium III - 500MHz
+	pc01   S3 Trio 128 bits 4Mo AGP
+	pc01   SDRAM 128Mo PC100
+	pc01   15" teco pitch 0.28
+	pc02   Celeron 500MHz
+	pc02   6,4Go Seagate UDMA33/66
+	pc02   Asus P5A ATX
+	pc02   SDRAM 64Mo PC100
+	pc02   Intel 740 8Mo AGP
+	pc02   17" teco pitch 0.28
+	pc03   CD-ROM 50X Asus IDE
+	pc03   Abit BH6 ATX
+	pc03   6,4Go Seagate UDMA33/66
+	pc03   ATI 128 Fury 32Mo AGP + TV
+	pc03   Pentium III - 600MHz
+	pc03   17" IIYAMA S703HT 0.26
+	pc03   16 bits 3D comp SB16 ISA
+	pc03   SDRAM 128Mo PC100
+	pc04   CD-ROM 50X Asus IDE
+	pc04   Abit BH6 ATX
+	pc04   6,4Go Seagate UDMA33/66
+	pc04   ATI 128 Fury 32Mo AGP + TV
+	pc04   Pentium III - 600MHz
+	pc04   17" IIYAMA S703HT 0.26
+	pc04   16 bits 3D comp SB16 ISA
+	pc04   SDRAM 128Mo PC100
+	pc05   CD-ROM 40X Plextor SCSI
+	pc05   17" IIYAMA A702HT
+	pc05   9,1Go IBM UW2 10000trs
+	pc05   Matrox G400 32Mo max
+	pc05   Athlon 800MHz
+	pc05   Sound Blaster Live Player
+	pc05   FIC SD11 UDMA33/66 (Athlon)
+	pc05   SDRAM 64Mo PC100
+	pc06   Celeron 433MHz
+	pc06   4,3Go Seagate UDMA33/66
+	pc06   EDO SIMM 16Mo
+	pc06   Matsonic MS6260
+	pc06   S3 Trio 128 bits 4Mo AGP
+	pc06   15" teco pitch 0.28
+
+4)
+select numpc from assemble, cartevideo 
+where assemble.refcomp=cartevideo.refcomp and ramvideo>=8;
+=> 	pc02
+	pc03
+	pc04
+	pc05
+
+5)
+select numpc from assemble 
+where refcomp in (select refcomp from processeur 
+where TroisDNow="oui");
+=> 	pc05
+
+6)
+select nomcomp from composant 
+where refcomp in (select refcomp from assemble 
+where numpc in (select numpc from machine 
+where salle="atelier"));
+=> 	CD-ROM 40X IDE
+	Abit BE6 ATX UDMA66
+	Celeron 500MHz
+	6,4Go Seagate UDMA33/66
+	9,1Go IBM UW2 10000trs
+	Pentium III - 500MHz
+	Asus P5A ATX
+	S3 Trio 128 bits 4Mo AGP
+	SDRAM 128Mo PC100
+	SDRAM 64Mo PC100
+	Intel 740 8Mo AGP
+	15" teco pitch 0.28
+	17" teco pitch 0.28
+
+7)
+select DISTINCT salle from machine 
+where numpc in (select numpc from assemble 
+where refcomp in (select refcomp from composant 
+where type="Son"));
+=> 	showroom
+	bureau
+
+8)
+
+9)
+select distinct numpc from assemble 
+where numpc not in (select numpc from assemble 
+where refcomp in (select refcomp from composant 
+where type="Son"));
+=> 	pc01
+	pc02
+	pc06
+
+10)
+select numpc from assemble 
+where refcomp in (select refcomp from composant 
+where nomcomp like "Celeron%");  							#ici Celeron% veut dire "élément commençant par Celeron".
+=> 	pc02
+	pc06
+
+11)
+select numpc from machine where dateachat like "%1999";
+=> 	pc01
+	pc02
+	pc03
+	pc04
+
+12)
+
+13)
+select numpc from assemble 
+where refcomp in (select refcomp from disquedur 
+where interface="SCSI");
+=> 	pc01
+	pc05
